@@ -29,13 +29,18 @@
 				<div class="col">
 					<div class="header_content d-flex flex-row align-items-center justify-content-start">
 						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
-							<div class="logo"><a href="index.html">Travello</a></div>
+							<div class="logo"><a href="/">Travello</a></div>
 							<nav class="main_nav">
 								<ul class="d-flex flex-row align-items-start justify-content-start">
-									<li class="active"><a href="index.html">Home</a></li>
+									<li class="active"><a href="/">Home</a></li>
 									<li><a href="about.html">About us</a></li>
-									<li><a href="#">Services</a></li>
-									<li><a href="news.html">News</a></li>
+									{% if user.is_authenticated %}
+										Hello ,<li>{{user.username}}</li>
+										<li><a href="accounts/logout">Logout</a></li>
+									{% else %}
+										<li><a href="accounts/register">Register</a></li>
+										<li><a href="accounts/login">Login</a></li>
+									{%endif%}
 									<li><a href="contact.html">Contact</a></li>
 								</ul>
 							</nav>
@@ -254,7 +259,7 @@
 						{% for dest in dests %}
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="{{baseUrl}}/{{dest.image}}" alt="">
+								<img src="{{dest.img.url}}" alt="">
 								{% if dest.offer %}
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
 								{% endif%} 
